@@ -241,7 +241,7 @@ footer .hl{color:#7a7090;}
 .proj-grid{display:flex;flex-direction:column;gap:12px;}
 .pg-top{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .pg-three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-.pc{background:#1a1630;border:1px solid rgba(130,100,180,0.28);border-radius:14px;box-shadow:0 1px 0 0 rgba(157,128,204,0.1) inset,0 4px 20px rgba(0,0,0,0.35);min-height:220px;padding:28px 26px;text-decoration:none;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:border-color 0.3s,background 0.3s,transform 0.3s,box-shadow 0.3s;animation:floatY 7s ease-in-out infinite;}
+.pc{background:#1a1630;border:1px solid rgba(130,100,180,0.28);border-radius:14px;box-shadow:0 1px 0 0 rgba(157,128,204,0.1) inset,0 4px 20px rgba(0,0,0,0.35);min-height:220px;padding:28px 26px;text-decoration:none;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:border-color 0.3s,background 0.3s,transform 0.3s,box-shadow 0.3s;animation:floatY 7s ease-in-out infinite;cursor:pointer;}
 .pc:nth-child(2){animation-delay:-2s;}
 .pc:nth-child(3){animation-delay:-4s;}
 .pc::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 0%,rgba(114,85,176,0.1),transparent 60%);opacity:0;transition:opacity 0.4s;pointer-events:none;}
@@ -431,13 +431,47 @@ footer .hl{color:#7a7090;}
   <h2 class="section-title">What I<br/><em>Work With</em></h2>
   <div class="skills-grid">
     <div class="skill-card"><div class="sk-icon">📊</div><div class="sk-title">SIEM &amp; Monitoring</div><div class="sk-items"><span class="si">Splunk</span><span class="si">Wazuh</span><span class="si">Log Analysis</span><span class="si">Alert Triage</span><span class="si">SPL Queries</span></div></div>
-    <div class="skill-card"><div class="sk-icon">☁️</div><div class="sk-title">Cloud Security</div><div class="sk-items"><span class="si">AWS CloudTrail</span><span class="si">AWS IAM</span><span class="si">EC2 Monitoring</span><span class="si">Access Policy Analysis</span></div></div>
+    <div class="skill-card"><div class="sk-icon">☁️</div><div class="sk-title">Cloud Security</div><div class="sk-items"><span class="si">AWS CloudTrail</span><span class="si">AWS IAM</span><span class="si">EC2 Monitoring</span><span class="si">CSPM</span><span class="si">S3 Security</span></div></div>
     <div class="skill-card"><div class="sk-icon">🖥️</div><div class="sk-title">Endpoint Security</div><div class="sk-items"><span class="si">Windows Event Logs</span><span class="si">Linux Auth Logs</span><span class="si">journalctl</span><span class="si">Event ID Analysis</span></div></div>
     <div class="skill-card"><div class="sk-icon">🎯</div><div class="sk-title">Frameworks</div><div class="sk-items"><span class="si">MITRE ATT&amp;CK</span><span class="si">Incident Response</span><span class="si">Severity Classification</span><span class="si">SOC Workflows</span></div></div>
     <div class="skill-card"><div class="sk-icon">⚙️</div><div class="sk-title">Programming</div><div class="sk-items"><span class="si">Python</span><span class="si">Bash</span><span class="si">JSON Parsing</span><span class="si">LLM API Integration</span></div></div>
-    <div class="skill-card"><div class="sk-icon">🛠️</div><div class="sk-title">Tools &amp; OS</div><div class="sk-items"><span class="si">Linux (Ubuntu)</span><span class="si">Windows</span><span class="si">Git &amp; GitHub</span><span class="si">Ollama</span></div></div>
+    <div class="skill-card"><div class="sk-icon">🛠️</div><div class="sk-title">Tools &amp; OS</div><div class="sk-items"><span class="si">Linux (Ubuntu)</span><span class="si">Windows</span><span class="si">Git &amp; GitHub</span><span class="si">Ollama</span><span class="si">Cowrie Honeypot</span><span class="si">AWS EC2</span></div></div>
   </div>
 </section>
+
+<!-- PROJECT MODAL -->
+<style>
+#projModalBox{scrollbar-width:none;}
+#projModalBox::-webkit-scrollbar{display:none;}
+.m-section-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:#f2f0f7;background:rgba(114,85,176,0.25);border:1px solid rgba(157,128,204,0.4);border-radius:4px;padding:3px 10px;display:inline-block;margin-bottom:10px;}
+.m-divider{height:1px;background:linear-gradient(90deg,rgba(114,85,176,0.3),transparent);margin:4px 0 16px;}
+</style>
+<div id="projModal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;">
+  <div id="projModalBg" style="position:absolute;inset:0;background:rgba(12,9,24,0.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);" onclick="closeModal()"></div>
+  <div id="projModalBox" style="position:relative;z-index:2;background:linear-gradient(160deg,#1a1535 0%,#120e28 100%);border:1px solid rgba(157,128,204,0.3);border-radius:20px;max-width:640px;width:92%;max-height:86vh;overflow-y:auto;padding:0;box-shadow:0 0 0 1px rgba(157,128,204,0.08),0 24px 80px rgba(20,8,50,0.8);transform:translateY(30px);opacity:0;transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),opacity 0.3s ease;">
+    <!-- Top accent bar -->
+    <div style="height:3px;background:linear-gradient(90deg,#7255b0,#d4934a,transparent);border-radius:20px 20px 0 0;"></div>
+    <!-- Header area -->
+    <div style="padding:28px 32px 24px;border-bottom:1px solid rgba(130,100,180,0.15);">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px;">
+        <div id="mBadge" style="display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:2px;color:#c4a8f0;padding:5px 14px;background:rgba(114,85,176,0.18);border:1px solid rgba(157,128,204,0.35);border-radius:20px;flex-shrink:0;"></div>
+        <button onclick="closeModal()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;width:32px;height:32px;min-width:32px;color:#a099b8;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">✕</button>
+      </div>
+      <h3 id="mTitle" style="font-family:'Syne',sans-serif;font-size:1.45rem;font-weight:800;color:#f2f0f7;line-height:1.25;margin-bottom:16px;letter-spacing:-0.5px;"></h3>
+      <div id="mTags" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+    </div>
+    <!-- Body -->
+    <div id="mBody" style="padding:26px 32px;font-family:'Syne',sans-serif;font-size:0.9rem;color:#c0bbd8;line-height:1.85;display:flex;flex-direction:column;gap:20px;"></div>
+    <!-- Footer -->
+    <div style="padding:0 32px 28px;">
+      <a id="mLink" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:0.66rem;letter-spacing:1.5px;color:#f2f0f7;background:linear-gradient(135deg,rgba(212,147,74,0.18),rgba(180,110,40,0.12));border:1px solid rgba(212,147,74,0.45);padding:13px 26px;border-radius:10px;text-decoration:none;transition:all 0.25s;" onmouseover="this.style.background='linear-gradient(135deg,rgba(212,147,74,0.3),rgba(180,110,40,0.22))';this.style.borderColor='rgba(212,147,74,0.7)'" onmouseout="this.style.background='linear-gradient(135deg,rgba(212,147,74,0.18),rgba(180,110,40,0.12))';this.style.borderColor='rgba(212,147,74,0.45)'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        VIEW ON GITHUB
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="12" height="12"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
 
 <section id="projects">
   <div class="sec-num">03</div>
@@ -445,66 +479,66 @@ footer .hl{color:#7a7090;}
   <h2 class="section-title"><em>Projects</em></h2>
   <div class="proj-grid">
     <div class="pg-top">
-      <a href="https://github.com/nssriraam/AI-CloudTrail-Analyzer" target="_blank" class="pc pc-feat pc-highlight">
+      <div class="pc pc-feat pc-highlight" onclick="openModal(0)">
         <div class="pc-h-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> AI · LLM INTEGRATION</div>
         <div class="pc-name">AI-Powered CloudTrail<br/>Anomaly Detector</div>
-        <p class="pc-desc">Python + Ollama (Qwen 2.5) pipeline analyzing 20 CloudTrail events across a full attack chain — brute force, privilege escalation, defense evasion, data exfiltration. Auto-generates SOC incident reports with MITRE ATT&CK mapping.</p>
+        <p class="pc-desc">Built a local LLM pipeline to automate SOC triage across a 20-event AWS attack chain, detecting brute force, privilege escalation, and data exfiltration without any cloud API costs.</p>
         <div class="pc-tags"><span class="pc-tag">Python</span><span class="pc-tag">Ollama</span><span class="pc-tag">CloudTrail</span><span class="pc-tag">MITRE ATT&CK</span><span class="pc-tag">LLM</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
-      <a href="https://github.com/nssriraam/AWS-CSPM-Tool" target="_blank" class="pc pc-feat pc-highlight">
+      </div>
+      <div class="pc pc-feat pc-highlight" onclick="openModal(1)">
         <div class="pc-h-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> CLOUD SECURITY POSTURE</div>
         <div class="pc-name">AWS Cloud Security<br/>Posture Management Tool</div>
-        <p class="pc-desc">Custom CSPM tool that audits AWS environments for misconfigurations — S3 public access, overpermissive IAM policies, security group risks, and CloudTrail logging gaps. Outputs prioritized risk reports.</p>
+        <p class="pc-desc">AWS environments often ship with silent misconfigurations. Built a Python CSPM tool that audits S3 buckets, IAM policies, and security groups, outputting a prioritized risk report for immediate remediation.</p>
         <div class="pc-tags"><span class="pc-tag">AWS</span><span class="pc-tag">CSPM</span><span class="pc-tag">IAM</span><span class="pc-tag">S3</span><span class="pc-tag">Python</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
+      </div>
     </div>
     <div class="pg-three">
-      <a href="https://github.com/nssriraam/SOC-Home-Lab/tree/main/SOC-Incident-Case-Study" target="_blank" class="pc">
+      <div class="pc" onclick="openModal(2)">
         <div class="pc-num">03</div>
+        <div class="pc-name">SSH Honeypot &amp; Attack Analysis</div>
+        <p class="pc-desc">Deployed a live Cowrie honeypot on AWS EC2 to capture real attacker behavior: 16 brute-force sessions, credential patterns, and post-login commands mapped to MITRE ATT&CK.</p>
+        <div class="pc-tags"><span class="pc-tag">Cowrie</span><span class="pc-tag">AWS EC2</span><span class="pc-tag">MITRE ATT&CK</span><span class="pc-tag">Threat Intel</span></div>
+        <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+      </div>
+      <div class="pc" onclick="openModal(3)">
+        <div class="pc-num">04</div>
         <div class="pc-name">SOC Incident Case Study — MITRE ATT&CK</div>
-        <p class="pc-desc">Full SOC incident lifecycle from alert triage to closure. Mapped 5+ behaviors to MITRE ATT&CK with analyst decision-making documented at every stage.</p>
+        <p class="pc-desc">Simulated a full analyst workflow from first alert to case closure, triaging suspicious events, mapping 5+ behaviors to MITRE ATT&CK, and documenting every decision as a real SOC report.</p>
         <div class="pc-tags"><span class="pc-tag">MITRE ATT&CK</span><span class="pc-tag">Incident Response</span><span class="pc-tag">Alert Triage</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
-      <a href="https://github.com/nssriraam/SOC-Home-Lab/tree/main/Project%204%20%E2%80%93%20AWS%20Cloud%20SOC%20IAM%20%26%20EC2%20Activity%20Monitoring" target="_blank" class="pc">
-        <div class="pc-num">04</div>
+      </div>
+      <div class="pc" onclick="openModal(4)">
+        <div class="pc-num">05</div>
         <div class="pc-name">AWS CloudTrail &amp; IAM Security Monitoring</div>
-        <p class="pc-desc">Monitored CloudTrail logs to detect IAM anomalies, AccessDenied events, and EC2 provisioning activity.</p>
+        <p class="pc-desc">Analyzed CloudTrail audit logs to surface IAM anomalies, AccessDenied spikes, and unauthorized EC2 provisioning, applying SOC investigation techniques to real cloud event data.</p>
         <div class="pc-tags"><span class="pc-tag">AWS</span><span class="pc-tag">CloudTrail</span><span class="pc-tag">IAM</span><span class="pc-tag">EC2</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
-      <a href="https://github.com/nssriraam/SOC-Home-Lab/tree/main/Project%203%20%E2%80%93%20AWS%20CloudTrail%20IAM%20Monitoring" target="_blank" class="pc">
-        <div class="pc-num">05</div>
-        <div class="pc-name">AWS Cloud SOC IAM &amp; EC2 Activity Monitoring</div>
-        <p class="pc-desc">Monitored IAM and EC2 provisioning actions in AWS. Identified risky configurations and abnormal access behavior.</p>
-        <div class="pc-tags"><span class="pc-tag">AWS</span><span class="pc-tag">IAM</span><span class="pc-tag">EC2</span><span class="pc-tag">Cloud Security</span></div>
-        <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
+      </div>
     </div>
     <div class="pg-three">
-      <a href="https://github.com/nssriraam/SOC-Home-Lab/tree/main/Wazuh-SIEM-Troubleshooting" target="_blank" class="pc">
+      <div class="pc" onclick="openModal(5)">
         <div class="pc-num">06</div>
         <div class="pc-name">Wazuh SIEM Deployment &amp; Troubleshooting</div>
-        <p class="pc-desc">Deployed self-hosted Wazuh SIEM and resolved 3+ critical failures across indexer, API, and dashboard components.</p>
+        <p class="pc-desc">Set up a self-hosted Wazuh SIEM from scratch and diagnosed 3 production-level failures across the indexer, REST API, and dashboard, documenting fixes as an operational runbook.</p>
         <div class="pc-tags"><span class="pc-tag">Wazuh</span><span class="pc-tag">SIEM</span><span class="pc-tag">Linux</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
-      <a href="https://github.com/nssriraam/SOC-Home-Lab/tree/main/Project%202%20%E2%80%93%20Linux%20SSH%20Log%20Monitoring%20using%20Splunk" target="_blank" class="pc">
+      </div>
+      <div class="pc" onclick="openModal(6)">
         <div class="pc-num">07</div>
         <div class="pc-name">Linux SSH Log Monitoring with Splunk</div>
-        <p class="pc-desc">Ingested SSH logs into Splunk, wrote SPL queries to detect brute-force patterns across 50+ log entries.</p>
+        <p class="pc-desc">Ingested Linux authentication logs into Splunk and wrote SPL queries to detect brute-force patterns across 50+ events, simulating the core detection workflow of a Tier 1 SOC analyst.</p>
         <div class="pc-tags"><span class="pc-tag">Splunk</span><span class="pc-tag">SSH</span><span class="pc-tag">SPL</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
-      <a href="https://github.com/nssriraam/SOC-Home-Lab/tree/main/Windows-Endpoint-SOC-Log-Analysis" target="_blank" class="pc">
+      </div>
+      <div class="pc" onclick="openModal(7)">
         <div class="pc-num">08</div>
         <div class="pc-name">Windows Endpoint SOC Log Analysis</div>
-        <p class="pc-desc">Analyzed Windows Security Event Logs (4624/4625) to detect authentication failures and brute-force sequences.</p>
+        <p class="pc-desc">Analyzed Windows Security Event Logs (Event IDs 4624/4625) to identify repeated authentication failures and reconstruct a brute-force sequence, with severity classification and response recommendations.</p>
         <div class="pc-tags"><span class="pc-tag">Windows</span><span class="pc-tag">Event Logs</span><span class="pc-tag">4625</span></div>
         <div class="pc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -529,11 +563,11 @@ footer .hl{color:#7a7090;}
   <div class="contact-cards-row">
     <a href="mailto:nosriraam7@gmail.com" class="ccard">
       <div class="ccard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div>
-      <div class="ccard-label">Email</div><div class="ccard-val"><span class="__cf_email__" data-cfemail="8fe1e0fcfde6fdeeeee2b8cfe8e2eee6e3a1ece0e2">[email&#160;protected]</span></div>
+      <div class="ccard-label">Email</div><div class="ccard-val">nosriraam7@gmail.com</div>
     </a>
-    <a href="tel:+919751716283" class="ccard">
-      <div class="ccard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.19h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-      <div class="ccard-label">Phone</div><div class="ccard-val">+91 97517 16283</div>
+    <a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" class="ccard">
+      <div class="ccard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+      <div class="ccard-label">LinkedIn</div><div class="ccard-val">sriraam-nagarajan</div>
     </a>
     <div class="ccard">
       <div class="ccard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -581,6 +615,114 @@ footer .hl{color:#7a7090;}
 </footer>
 
 <script>
+// ── PROJECT DATA ──
+var projects = [
+  {
+    badge: '🤖 AI · LLM INTEGRATION',
+    title: 'AI-Powered CloudTrail Anomaly Detector',
+    tags: ['Python','Ollama','CloudTrail','MITRE ATT&CK','LLM'],
+    link: 'https://github.com/nssriraam/AI-CloudTrail-Analyzer',
+    problem: 'Manual SOC triage of cloud logs is slow and expensive when scaled, especially across multi-stage attack chains where events span dozens of API calls.',
+    built: 'Built a Python + Ollama (Qwen 2.5) pipeline that ingests 20 CloudTrail events covering a full attack chain covering brute force, privilege escalation, defense evasion, and data exfiltration, automatically generating structured SOC incident reports with MITRE ATT&CK mapping.',
+    learned: 'Learned how to integrate local LLMs into security workflows, structure prompt templates for consistent triage output, and map raw API events to adversary tactics without manual analyst intervention.'
+  },
+  {
+    badge: '☁️ CLOUD SECURITY POSTURE',
+    title: 'AWS Cloud Security Posture Management Tool',
+    tags: ['AWS','CSPM','IAM','S3','Python'],
+    link: 'https://github.com/nssriraam/AWS-CSPM-Tool',
+    problem: 'AWS environments commonly ship with silent misconfigurations: public S3 buckets, overpermissive IAM policies, and missing CloudTrail logging that go undetected until exploited.',
+    built: 'Built a Python CSPM tool that programmatically audits AWS environments for S3 public access, IAM wildcard policies, open security groups, and CloudTrail gaps, outputting a prioritized risk report with remediation guidance.',
+    learned: 'Deepened understanding of AWS security architecture, IAM policy evaluation logic, and how attackers exploit cloud misconfigurations to move laterally or exfiltrate data.'
+  },
+  {
+    badge: '🍯 HONEYPOT · THREAT INTEL',
+    title: 'SSH Honeypot & Real-World Attack Analysis',
+    tags: ['Cowrie','AWS EC2','MITRE ATT&CK','Threat Intel','JSON Logs'],
+    link: 'https://github.com/nssriraam/SSH-Honeypot-Attack-Analysis',
+    problem: 'Understanding real attacker behavior requires exposure to live threats, not just simulated lab scenarios.',
+    built: 'Deployed a Cowrie SSH honeypot on a public AWS EC2 instance (EU-North-1) and captured 16 live brute-force sessions within 35 minutes. Recorded attacker credentials, post-login commands (whoami, cat /etc/passwd, wget malware), and session data, then mapped all activity to MITRE ATT&CK (T1110, T1082, T1087, T1105).',
+    learned: 'Observed real-world attack automation patterns, credential spraying behavior, and immediate post-exploitation reconnaissance, gaining hands-on threat intelligence experience outside a lab environment.'
+  },
+  {
+    badge: '🎯 INCIDENT RESPONSE',
+    title: 'SOC Incident Case Study — MITRE ATT&CK',
+    tags: ['MITRE ATT&CK','Incident Response','Alert Triage','SOC'],
+    link: 'https://github.com/nssriraam/SOC-Home-Lab/tree/main/SOC-Incident-Case-Study',
+    problem: 'SOC analysts need more than detection skills. They need to handle the full incident lifecycle from initial alert through investigation, escalation, and closure.',
+    built: 'Simulated a complete SOC analyst workflow: triaged an incoming alert, investigated the event trail, mapped 5+ behaviors to MITRE ATT&CK techniques, classified severity, and documented every analyst decision in a professional incident report.',
+    learned: 'Developed structured thinking for incident handling: knowing when to escalate, how to document findings clearly, and and how to tie observable behaviors back to adversary tactics.'
+  },
+  {
+    badge: '☁️ AWS CLOUD MONITORING',
+    title: 'AWS CloudTrail & IAM Security Monitoring',
+    tags: ['AWS','CloudTrail','IAM','EC2','SOC'],
+    link: 'https://github.com/nssriraam/SOC-Home-Lab/tree/main/Project%204%20%E2%80%93%20AWS%20Cloud%20SOC%20IAM%20%26%20EC2%20Activity%20Monitoring',
+    problem: 'Cloud environments generate high volumes of API activity. Detecting the subset that indicates unauthorized access or privilege abuse requires structured log analysis.',
+    built: 'Analyzed AWS CloudTrail audit logs to surface IAM anomalies, AccessDenied event spikes, unauthorized EC2 provisioning attempts, and risky policy changes, applying SOC triage techniques to real cloud event data.',
+    learned: 'Understood how IAM permission boundaries work in practice, how attackers probe cloud environments through API calls, and how to use CloudTrail as a primary detection data source.'
+  },
+  {
+    badge: '🛡️ SIEM DEPLOYMENT',
+    title: 'Wazuh SIEM Deployment & Troubleshooting',
+    tags: ['Wazuh','SIEM','Linux','Indexer','API'],
+    link: 'https://github.com/nssriraam/SOC-Home-Lab/tree/main/Wazuh-SIEM-Troubleshooting',
+    problem: 'Self-hosted SIEM deployments rarely go smoothly in production. Understanding failure modes is as important as knowing how to install the tool.',
+    built: 'Deployed a full self-hosted Wazuh SIEM stack and diagnosed 3 critical production-level failures across the OpenSearch indexer, REST API, and web dashboard, resolving each and documenting the fixes as an operational runbook.',
+    learned: 'Gained practical SIEM operations experience beyond basic setup, covering indexer health, API authentication, and how to recover a degraded SIEM without data loss.'
+  },
+  {
+    badge: '📊 SIEM · LOG ANALYSIS',
+    title: 'Linux SSH Log Monitoring with Splunk',
+    tags: ['Splunk','SSH','SPL','Brute Force Detection'],
+    link: 'https://github.com/nssriraam/SOC-Home-Lab/tree/main/Project%202%20%E2%80%93%20Linux%20SSH%20Log%20Monitoring%20using%20Splunk',
+    problem: 'SSH brute-force is one of the most common initial access techniques. Tier 1 analysts need to be able to detect and characterize these attempts quickly from raw logs.',
+    built: 'Ingested Linux authentication logs into Splunk and wrote SPL queries to detect brute-force patterns across 50+ log events, identifying failed login bursts, source IPs, and temporal attack patterns.',
+    learned: 'Built foundational SPL query skills and understood how authentication log structure maps to detection logic, the same workflow used in enterprise SOC environments for SSH monitoring.'
+  },
+  {
+    badge: '🖥️ ENDPOINT DETECTION',
+    title: 'Windows Endpoint SOC Log Analysis',
+    tags: ['Windows','Event Logs','4624','4625','Brute Force'],
+    link: 'https://github.com/nssriraam/SOC-Home-Lab/tree/main/Windows-Endpoint-SOC-Log-Analysis',
+    problem: 'Windows authentication events are a primary data source for endpoint detection. Analysts must be able to read Event IDs and reconstruct attack sequences from raw Security logs.',
+    built: 'Analyzed Windows Security Event Logs focusing on Event IDs 4624 (successful logon) and 4625 (failed logon) to identify repeated authentication failures, reconstruct a brute-force sequence, and produce a SOC-style severity assessment with response recommendations.',
+    learned: 'Developed familiarity with Windows log structure, logon types, and how to distinguish benign failures from coordinated brute-force activity using event correlation.'
+  }
+];
+
+// ── MODAL ──
+function openModal(i){
+  var p = projects[i];
+  var modal = document.getElementById('projModal');
+  document.getElementById('mBadge').textContent = p.badge;
+  document.getElementById('mTitle').textContent = p.title;
+  document.getElementById('mLink').href = p.link;
+  var tagsEl = document.getElementById('mTags');
+  tagsEl.innerHTML = p.tags.map(function(t){ return '<span style="font-family:\'Space Mono\',monospace;font-size:0.58rem;padding:4px 12px;background:rgba(20,40,35,0.8);border:1px solid rgba(74,222,128,0.18);color:#6ee7b7;letter-spacing:0.4px;border-radius:20px;">'+t+'</span>'; }).join('');
+  document.getElementById('mBody').innerHTML =
+    '<div><div class="m-section-label">Problem</div><div class="m-divider"></div><p style="margin:0;">'+p.problem+'</p></div>'+
+    '<div><div class="m-section-label">What I Built</div><div class="m-divider"></div><p style="margin:0;">'+p.built+'</p></div>'+
+    '<div><div class="m-section-label">What I Learned</div><div class="m-divider"></div><p style="margin:0;">'+p.learned+'</p></div>';
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(function(){
+    var box = document.getElementById('projModalBox');
+    box.style.transform = 'translateY(0)';
+    box.style.opacity = '1';
+  });
+}
+function closeModal(){
+  var box = document.getElementById('projModalBox');
+  box.style.transform = 'translateY(30px)';
+  box.style.opacity = '0';
+  setTimeout(function(){
+    document.getElementById('projModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }, 280);
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
 // ── CONTACT FORM ──
 function sendContactForm(){
   var name=document.getElementById('cf-name').value.trim();
