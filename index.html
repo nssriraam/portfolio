@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sriraam Nagarajan — Security Portfolio</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:;">
 
 <!-- Primary Meta Tags -->
 <meta name="title" content="Sriraam Nagarajan — Security Portfolio">
@@ -71,31 +72,33 @@ body.no-scroll{overflow:hidden;}
 /* ── ENVIRONMENTAL STATES ── */
 body.env-hero .aura-bg { background: #0a060d; }
 body.env-about .aura-bg { background: #120a18; }
-body.env-about .aura { opacity: 0.9; filter: blur(100px); }
+body.env-about .aura { opacity: 0.9; }
 body.env-experience .aura-bg { background: #0c0812; }
-body.env-experience .aura { opacity: 0.65; filter: blur(130px); }
+body.env-experience .aura { opacity: 0.65; }
 body.env-achievements .aura-bg { background: #140c14; }
-body.env-achievements .aura { opacity: 1; filter: blur(95px); }
+body.env-achievements .aura { opacity: 1; }
 body.env-achievements .aura3, body.env-achievements .aura5 { background: radial-gradient(ellipse, rgba(212,147,74,0.3) 0%, #5a3060 40%, transparent 65%); }
 body.env-skills .aura-bg { background: #10081a; }
-body.env-skills .aura { opacity: 0.95; filter: blur(90px); }
+body.env-skills .aura { opacity: 0.95; }
 body.env-projects .aura-bg { background: #180c22; }
-body.env-projects .aura { opacity: 1; filter: blur(80px); }
+body.env-projects .aura { opacity: 1; }
 body.env-projects .aura1, body.env-projects .aura2 { opacity: 1; transform: scale(1.15); }
 body.env-certs .aura-bg { background: #0a0710; }
-body.env-certs .aura { opacity: 0.6; filter: blur(130px); }
+body.env-certs .aura { opacity: 0.6; }
 body.env-contact .aura-bg { background: #040306; }
-body.env-contact .aura { opacity: 0.25; filter: blur(160px); }
+body.env-contact .aura { opacity: 0.25; }
 
 /* ── NOISE & VIGNETTE ── */
 .noise{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0.07;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  transition: box-shadow 2s var(--ease); box-shadow: inset 0 0 0px #000; }
-body.env-hero .noise { box-shadow: inset 0 0 250px rgba(0,0,0,0.95); opacity:0.1; }
+}
+.vignette{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0;box-shadow:inset 0 0 250px rgba(0,0,0,0.95);transition:opacity 2s var(--ease);}
+body.env-hero .noise { opacity:0.1; }
+body.env-hero .vignette { opacity:1; }
 
 /* ── AURA BACKGROUND ── */
 .aura-bg{position:fixed;inset:-20vh 0 -20vh 0;height:140vh;width:100vw;z-index:0;pointer-events:none;background:#100a14;overflow:hidden;transform:translateY(calc(var(--scroll-progress) * -18vh));will-change:transform, background;transition:background 2s var(--ease);}
-.aura{position:absolute;filter:blur(110px);animation:auraFloat infinite alternate cubic-bezier(0.45,0.05,0.55,0.95);will-change:transform, opacity, filter;transition: opacity 2.5s var(--ease), filter 2.5s var(--ease), background 2.5s var(--ease);}
+.aura{position:absolute;filter:blur(110px);animation:auraFloat infinite alternate cubic-bezier(0.45,0.05,0.55,0.95);will-change:transform, opacity;transition: opacity 2.5s var(--ease), background 2.5s var(--ease);}
 .aura1{width:610px;height:545px;opacity:0.8;background:radial-gradient(ellipse,#7b518c 0%,#4c2c5c 35%,transparent 65%);top:-10%;left:30%;border-radius:42% 58% 65% 35% / 55% 40% 60% 45%;animation-duration:22s;}
 .aura2{width:670px;height:590px;opacity:0.7;background:radial-gradient(ellipse,#644181 0%,#341b44 40%,transparent 65%);top:20%;right:-5%;border-radius:55% 45% 38% 62% / 48% 62% 38% 52%;animation-duration:26s;animation-delay:-6s;}
 .aura3{width:590px;height:505px;opacity:0.65;background:radial-gradient(ellipse,#5a366a 0%,#2f1940 40%,transparent 65%);bottom:10%;right:40%;border-radius:38% 62% 52% 48% / 62% 35% 65% 38%;animation-duration:20s;animation-delay:-12s;}
@@ -207,6 +210,9 @@ nav.pill-nav a.nav-link:hover { color: var(--txt); }
 .nav-hire:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+  background: linear-gradient(90deg,#f0edf8,#c2bccf,#f0edf8,#c2bccf,#f0edf8);
+  background-size: 300% auto;
+  animation: liquidText 4s linear infinite;
 }
 
 /* ── SPOTLIGHT EFFECT ── */
@@ -230,16 +236,18 @@ nav.pill-nav a.nav-link:hover { color: var(--txt); }
 /* ── SECTIONS ── */
 section{position:relative;z-index:10;padding:140px 7%;max-width:1500px;margin:0 auto;}
 .section-title{font-size:clamp(2.8rem,6vw,5rem);font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:70px;background:linear-gradient(180deg,#ffffff 0%,#e0dceb 45%,#aea7bf 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5));}
-.section-title em{font-style:normal;background:linear-gradient(180deg,#e4d8ff 0%,#ad92e8 45%,#7652b3 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.section-title em{font-style:normal;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;background-image:linear-gradient(90deg,#c7aef5,#7652b3,#d4934a,#7652b3,#c7aef5);background-size:300% auto;animation:liquidText 6s linear infinite;}
 
 /* ── HERO ── */
 #hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:0;width:100%;overflow:visible;}
 .hero-sticky-wrap{position:relative;width:100%;height:140vh;overflow:visible;}
 .hero-main{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;padding-top:60px;overflow:visible;}
-.hero-name{font-size:clamp(3.5rem,9vw,8.5rem);font-weight:800;letter-spacing:-5px;line-height:0.9;margin-bottom:24px;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.5));overflow:visible;}
-.hero-name-row{display:block;will-change:transform;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-#heroFirst{background-image:linear-gradient(180deg,#ffffff 0%,#e0dceb 45%,#aea7bf 100%);}
-#heroLast{background-image:linear-gradient(180deg,#e4d8ff 0%,#ad92e8 45%,#7652b3 100%);}
+.hero-name{font-size:clamp(3.5rem,9vw,8.5rem);font-weight:800;letter-spacing:-5px;line-height:0.9;margin-bottom:24px;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.5));overflow:visible;animation:pulseHero 4s ease-in-out infinite alternate;}
+@keyframes pulseHero { 0%{filter:drop-shadow(0 5px 15px rgba(255,255,255,0.05));} 100%{filter:drop-shadow(0 5px 35px rgba(157,128,204,0.3));} }
+.hero-name-row{display:block;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;background-size:300% auto;animation:liquidText 6s linear infinite;}
+@keyframes liquidText { to { background-position: 300% center; } }
+#heroFirst{background-image:linear-gradient(90deg,#ffffff,#c2bccf,#ffffff,#c2bccf,#ffffff);}
+#heroLast{background-image:linear-gradient(90deg,#c7aef5,#7652b3,#d4934a,#7652b3,#c7aef5);}
 .hero-sub{font-family:var(--mono);font-size:clamp(0.85rem,1.4vw,1.1rem);color:var(--muted);letter-spacing:1.5px;margin-bottom:34px;}
 .hero-desc{max-width:760px;font-size:1.2rem;color:var(--dim);line-height:1.9;margin:0 auto 46px;font-weight:500;}
 
@@ -577,15 +585,34 @@ footer .hl{color:rgba(255,255,255,0.8);}
 
 /* ── MODAL (Center Pop Redesign) ── */
 #projModal{display:none;position:fixed;inset:0;z-index:100000;align-items:center;justify-content:center;}
-#projModalBg{position:absolute;inset:0;background:rgba(3,2,6,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px); opacity:0; transition: opacity 0.35s var(--ease);}
-#projModalBox{position:relative;z-index:2;background:linear-gradient(160deg, rgba(22,22,25,.95) 0%, rgba(14,14,16,.97) 50%, rgba(8,8,10,.99) 100%);border:1px solid rgba(255,255,255,0.1);border-radius:24px;width: 90%; max-width: 900px; max-height: 75vh; overflow-y:auto;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,.06);transform:scale(0.85);opacity:0;transition:transform 0.4s var(--ease), opacity 0.4s var(--ease);scrollbar-width:none; padding: 50px;}
+#projModalBg{position:absolute;inset:0;background:rgba(3,2,6,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px); opacity:0; transition: opacity 0.35s var(--ease);}
+#projModalBox{position:relative;z-index:2;background:linear-gradient(160deg, rgba(35,35,42,.75) 0%, rgba(20,20,26,.80) 50%, rgba(10,10,14,.85) 100%);border:1px solid rgba(255,255,255,0.1);border-radius:24px;width: 95%; max-width: 1300px; min-height: 700px; max-height: 90vh; overflow-y:auto;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,.06);transform:scale(0.85);opacity:0;transition:transform 0.4s var(--ease), opacity 0.4s var(--ease);scrollbar-width:none; padding: 50px;}
 #projModalBox::-webkit-scrollbar{display:none;}
-.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap: 40px;}
-.m-left{padding:0;border-right:1px solid rgba(255,255,255,0.06);padding-right:30px;display:flex;flex-direction:column;}
-.m-right{padding:0;display:flex;flex-direction:column;gap:20px;padding-left:10px;}
-.modal-close-btn{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;width:36px;height:36px;color:#a099b8;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.3s;}
+.modal-grid{display:flex;flex-direction:column;gap:30px;}
+.m-top-row{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+.m-bottom-row{display:grid;grid-template-columns:repeat(3, 1fr);gap:20px;}
+.m-left{padding:0;display:flex;flex-direction:column;gap:20px;}
+.m-right-vis{padding:0;position:relative;border-radius:16px;overflow:hidden;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;height:340px;}
+.m-right-vis[data-proj*="CSPM"], .m-right-vis[data-proj*="CloudTrail"] { background: transparent !important; border-color: transparent !important; }
+.m-right-vis[data-proj*="CSPM"] { height: 310px !important; }
+.m-right-vis > div { transform-origin: top center; max-height: 100%; max-width: 100%; }
+.m-right-vis[data-proj*="R I K A"] video { transform: scale(1.20) !important; }
+.m-right-vis[data-proj*="R I K A"] { height: 340px !important; }
+.m-right-vis[data-proj*="Marrow"] { background: transparent !important; border-color: transparent !important; }
+.m-right-vis[data-proj*="Marrow"] > div { padding: 0 !important; transform: scale(0.9); }
+.vis-marrow .m-card { background: rgba(255,255,255,0.09) !important; border-color: rgba(255,255,255,0.15) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important; }
+.modal-close-btn{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;width:36px;height:36px;color:#a099b8;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.3s;}
 .modal-close-btn:hover{background:rgba(255,255,255,0.12);color:var(--txt);border-color:rgba(255,255,255,0.2);}
-.m-section-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--txt);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:3px 10px;display:inline-block;margin-bottom:12px;}
+.modal-view-btn { position: relative; overflow: hidden; z-index: 1; }
+.modal-view-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #c7aef5, #7652b3, #d4934a, #7652b3, #c7aef5); background-size: 300% auto; opacity: 0; transition: opacity 0.4s var(--ease); z-index: -1; border-radius: inherit; }
+.modal-view-btn:hover::before { opacity: 1; animation: liquidText 4s linear infinite; }
+.modal-view-btn span { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 10px; }
+.modal-view-btn:hover i { transform:translateY(-3px) translateX(3px) scale(1.1); }
+.m-bento-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 24px; transition: all 0.4s var(--ease); position: relative; overflow: hidden; }
+.m-bento-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+.m-bento-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); opacity: 0; transition: opacity 0.4s; }
+.m-bento-card:hover::before { opacity: 1; }
+.m-section-label{font-family:var(--mono);font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:6px 12px;display:inline-flex;align-items:center;margin-bottom:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);}
 
 /* ── HERO ENTER ── */
 .hero-enter-item{opacity:0;transform:translateY(32px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease);}
@@ -597,6 +624,7 @@ footer .hl{color:rgba(255,255,255,0.8);}
   .contact-layout{grid-template-columns:1fr; gap:60px;}
 }
 @media(max-width:900px){
+  .hamburger { display: block !important; }
   nav.pill-nav ul{display:none;}
   section{padding:100px 5%;}
   .hero-name{font-size:3.2rem;letter-spacing:-2px;}
@@ -615,12 +643,56 @@ footer .hl{color:rgba(255,255,255,0.8);}
   .bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .bento-bio, .bento-rika, .bento-edu { grid-column: span 1; grid-row: auto; }
 }
+
+/* Mobile Menu */
+.hamburger {
+  display: none;
+  color: var(--txt);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 5, 16, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+.mobile-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+.mobile-menu a {
+  color: var(--txt);
+  text-decoration: none;
+  font-family: var(--head);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+.mobile-menu a:hover {
+  color: var(--gold);
+}
 </style>
 </head>
 <body class="no-scroll">
 
 <canvas id="neuralCanvas"></canvas>
 <div class="noise"></div>
+<div class="vignette"></div>
 <div class="aura-bg">
   <div class="aura aura1"></div>
   <div class="aura aura2"></div>
@@ -635,6 +707,9 @@ footer .hl{color:rgba(255,255,255,0.8);}
 <div id="wipe"></div>
 
 <nav id="mainNav" class="pill-nav">
+  <div class="hamburger" id="hamburgerMenu" onclick="toggleMobileMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </div>
   <ul>
     <li><a href="#about" class="nav-link">About</a></li>
     <li><a href="#experience" class="nav-link">Experience</a></li>
@@ -648,6 +723,16 @@ footer .hl{color:rgba(255,255,255,0.8);}
     <a href="#" class="nav-hire" onclick="return handleHireMe(event)">Hire Me</a>
   </div>
 </nav>
+
+<div id="mobileMenu" class="mobile-menu">
+  <a href="#about" onclick="toggleMobileMenu()">About</a>
+  <a href="#experience" onclick="toggleMobileMenu()">Experience</a>
+  <a href="#achievements" onclick="toggleMobileMenu()">Wins</a>
+  <a href="#skills" onclick="toggleMobileMenu()">Skills</a>
+  <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+  <a href="#certs" onclick="toggleMobileMenu()">Certs</a>
+  <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+</div>
 
 <section id="hero">
   <div class="hero-sticky-wrap">
@@ -681,11 +766,11 @@ footer .hl{color:rgba(255,255,255,0.8);}
   </div>
 
   <div class="hero-social-icons">
-    <a href="https://github.com/nssriraam" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-    <a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-    <a href="https://www.instagram.com/nssriraam" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-    <a href="#" target="_blank" title="Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
-    <a href="#" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+    <a href="https://github.com/nssriraam" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://www.instagram.com/nssriraam" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.reddit.com/user/nssriraam-/" target="_blank" rel="noopener noreferrer" title="Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+    <a href="https://discord.com/channels/golddaizen" target="_blank" rel="noopener noreferrer" title="Discord"><i class="fa-brands fa-discord"></i></a>
     <a href="https://nssriraam.github.io/portfolio/assets/resume.pdf" target="_blank" rel="noopener noreferrer" title="Resume" class="resume-btn" style="border-color: rgba(212,147,74,0.3); color: var(--gold);"><i class="fa-regular fa-file-pdf"></i><span class="resume-text">Resume</span></a>
   </div>
 </section>
@@ -885,18 +970,18 @@ footer .hl{color:rgba(255,255,255,0.8);}
       <div class="socials-block">
         <div class="contact-heading" style="margin-bottom:30px;">Socials</div>
         <div class="socials-row">
-          <a href="https://github.com/nssriraam" target="_blank" class="s-icon"><i class="fa-brands fa-github"></i></a>
-          <a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" class="s-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="https://www.instagram.com/nssriraam" target="_blank" class="s-icon"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.reddit.com/user/nssriraam-/" target="_blank" class="s-icon"><i class="fa-brands fa-reddit-alien"></i></a>
-          <a href="https://discord.com/channels/golddaizen" target="_blank" class="s-icon"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://github.com/nssriraam" target="_blank" rel="noopener noreferrer" class="s-icon"><i class="fa-brands fa-github"></i></a>
+          <a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" rel="noopener noreferrer" class="s-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.instagram.com/nssriraam" target="_blank" rel="noopener noreferrer" class="s-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.reddit.com/user/nssriraam-/" target="_blank" rel="noopener noreferrer" class="s-icon"><i class="fa-brands fa-reddit-alien"></i></a>
+          <a href="https://discord.com/channels/golddaizen" target="_blank" rel="noopener noreferrer" class="s-icon"><i class="fa-brands fa-discord"></i></a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<footer><p>© 2026 <span class="hl">Sriraam Nagarajan</span>. All rights reserved.</p><div class="footer-socials"><a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" class="fsoc">LinkedIn</a><a href="https://github.com/nssriraam" target="_blank" class="fsoc">GitHub</a><a href="https://www.instagram.com/nssriraam" target="_blank" class="fsoc">Instagram</a><a href="https://www.reddit.com/user/nssriraam-/" target="_blank" class="fsoc">Reddit</a><a href="https://discord.com/channels/golddaizen" target="_blank" class="fsoc">Discord</a></div></footer>
+<footer><p>© 2026 <span class="hl">Sriraam Nagarajan</span>. All rights reserved.</p><div class="footer-socials"><a href="https://linkedin.com/in/sriraam-nagarajan-b0b100226" target="_blank" rel="noopener noreferrer" class="fsoc">LinkedIn</a><a href="https://github.com/nssriraam" target="_blank" rel="noopener noreferrer" class="fsoc">GitHub</a><a href="https://www.instagram.com/nssriraam" target="_blank" rel="noopener noreferrer" class="fsoc">Instagram</a><a href="https://www.reddit.com/user/nssriraam-/" target="_blank" rel="noopener noreferrer" class="fsoc">Reddit</a><a href="https://discord.com/channels/golddaizen" target="_blank" rel="noopener noreferrer" class="fsoc">Discord</a></div></footer>
 
 <!-- MODAL -->
 <div id="projModal" style="display:none;position:fixed;inset:0;z-index:100000;align-items:center;justify-content:center;">
@@ -909,12 +994,18 @@ footer .hl{color:rgba(255,255,255,0.8);}
 <script>
 // ── COPY EMAIL ──
 function copyEmail(){
-  navigator.clipboard.writeText('nosriraam7@gmail.com').then(function(){
+  try {
+    navigator.clipboard.writeText('nosriraam7@gmail.com').then(function(){
+      var btn = document.getElementById('copyEmailBtn');
+      var orig = '<i class="fa-regular fa-copy"></i> Copy Email';
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+      setTimeout(function(){ btn.innerHTML = orig; }, 2000);
+    });
+  } catch(e) {
     var btn = document.getElementById('copyEmailBtn');
-    var orig = '<i class="fa-regular fa-copy"></i> Copy Email';
     btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-    setTimeout(function(){ btn.innerHTML = orig; }, 2000);
-  });
+    setTimeout(function(){ btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Email'; }, 2000);
+  }
 }
 
 // ── SCROLL PARALLAX TRACKER ──
@@ -1141,7 +1232,7 @@ var projects=[
     problem:'FinOps sees cost, SecOps sees risk, but neither sees the whole picture. Enterprise teams waste hours arguing over which idle server to kill first.',
     built:'Engineered a deterministic workflow connecting billing + security data, routed to an AMD-hosted DeepSeek V4 Pro model for live, confidence-scored recommendations.',
     learned:'Mastered complex structured JSON generation with LLMs, cross-domain AWS data correlation, and full-stack Flask integration with SQLite and ReportLab.',
-    visual:'<div style=\"width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 12%; box-sizing: border-box; background: radial-gradient(circle at center, rgba(139,92,246,0.05), transparent 70%);\"><div class=\"vis-marrow\" style=\"width: 100%; height: 100%; background: linear-gradient(135deg, #0b0914 0%, #161224 100%); border-radius: 16px; padding: 20px; position: relative; overflow: hidden; font-family: \'Inter\', sans-serif; display: flex; flex-direction: column; gap: 12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.5); box-sizing: border-box; animation: floatMarrow 6s ease-in-out infinite;\"><style>@import url(\'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap\'); @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } } @keyframes pulseGlowMarrow { 0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); } 50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); } } @keyframes barGrowMarrow { 0% { transform: scaleY(0.05); } 70% { transform: scaleY(1.05); } 100% { transform: scaleY(1); } } @keyframes floatMarrow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } } .m-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; backdrop-filter: blur(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }</style><img src=\"data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=\" style=\"display:none;\" onload=\"const p=this.closest(\\\'.vis-marrow\\\');const s=p.querySelector(\\\'.s-num\\\');const v=p.querySelector(\\\'.v-num\\\');const a=p.querySelector(\\\'.a-num\\\');const s2=p.querySelector(\\\'.s-num-sm\\\');const v2=p.querySelector(\\\'.v-num-sm\\\');let st=null;const anim=(t)=>{if(!st)st=t;const pr=Math.min((t-st)/2000,1);const e=1-Math.pow(1-pr,4);const sv=Math.floor(e*407068).toLocaleString();const vv=Math.floor(e*35);if(s)s.innerText=\\\'$\\\'+sv;if(s2)s2.innerText=\\\'$\\\'+sv;if(v)v.innerText=vv;if(v2)v2.innerText=vv;if(a)a.innerText=Math.floor(e*25);if(pr<1)requestAnimationFrame(anim);};requestAnimationFrame(anim);\"><div style=\"position: absolute; top: -40%; left: -40%; width: 180%; height: 180%; background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 60%); pointer-events: none;\"></div><div style=\"display: flex; justify-content: space-between; align-items: center; animation: slideUpFade 0.6s ease-out forwards;\"><div style=\"display: flex; align-items: center; gap: 8px;\"><i class=\"fa-solid fa-shield-halved\" style=\"color: white; font-size: 1rem;\"></i><span style=\"font-weight: 800; color: white; font-size: 1rem; letter-spacing: 0.5px;\">Marrow</span><span style=\"color: rgba(255,255,255,0.2); font-size: 0.8rem;\">|</span><span style=\"color: #94a3b8; font-size: 0.7rem; font-weight: 600;\">Dashboard</span></div><div style=\"background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 10px; font-family: \'Space Mono\', monospace; font-size: 0.6rem; font-weight: 700; color: #cbd5e1; display: flex; align-items: center; gap: 6px;\"><i class=\"fa-solid fa-bolt\" style=\"color: #eab308;\"></i> Analyze</div></div><div class=\"m-card\" style=\"padding: 10px 14px; display: flex; gap: 12px; align-items: center; animation-delay: 0.1s;\"><div style=\"background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(168,85,247,0.05)); padding: 8px; border-radius: 8px; border: 1px solid rgba(168,85,247,0.2); color: #d8b4fe;\"><i class=\"fa-solid fa-robot\" style=\"font-size: 1rem;\"></i></div><div><div style=\"font-weight: 700; color: white; font-size: 0.75rem; margin-bottom: 2px;\">AI Executive Summary</div><div style=\"color: #94a3b8; font-size: 0.6rem; line-height: 1.4;\">Identified <span class=\"s-num-sm\" style=\"color: #4ade80;\">$0</span> savings and <span class=\"v-num-sm\" style=\"color: #60a5fa;\">0</span> attack vectors.</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;\"><div class=\"m-card\" style=\"padding: 12px; animation-delay: 0.2s; border-color: rgba(74,222,128,0.2); background: linear-gradient(180deg, rgba(74,222,128,0.05) 0%, rgba(255,255,255,0.01) 100%);\"><div style=\"color: #4ade80; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;\"><i class=\"fa-solid fa-piggy-bank\"></i> SAVINGS / YR</div><div class=\"s-num\" style=\"color: #4ade80; font-size: 1.2rem; font-family: \'Space Mono\', monospace; font-weight: 700; text-shadow: 0 0 15px rgba(74,222,128,0.4);\">$0</div></div><div class=\"m-card\" style=\"padding: 12px; animation-delay: 0.3s; border-color: rgba(96,165,250,0.2); background: linear-gradient(180deg, rgba(96,165,250,0.05) 0%, rgba(255,255,255,0.01) 100%);\"><div style=\"color: #60a5fa; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;\"><i class=\"fa-solid fa-shield-virus\"></i> ATTACK VECTORS</div><div class=\"v-num\" style=\"color: white; font-size: 1.2rem; font-family: \'Space Mono\', monospace; font-weight: 700;\">0</div></div><div class=\"m-card\" style=\"padding: 12px; animation-delay: 0.4s;\"><div style=\"color: #94a3b8; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;\"><i class=\"fa-solid fa-server\"></i> ANALYZED</div><div class=\"a-num\" style=\"color: white; font-size: 1.2rem; font-family: \'Space Mono\', monospace; font-weight: 700;\">0</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; flex: 1;\"><div class=\"m-card\" style=\"padding: 12px; display: flex; flex-direction: column; animation-delay: 0.5s;\"><div style=\"color: #94a3b8; font-size: 0.55rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;\">Spend vs. Optimized</div><div style=\"flex: 1; display: flex; align-items: flex-end; gap: 3px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;\"><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 45%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.50s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 25%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.55s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 35%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.60s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 15%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.65s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 50%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.70s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 20%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.75s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 30%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.80s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 10%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.85s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 40%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.90s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 35%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.95s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 25%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.00s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 18%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.05s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 20%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.10s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 12%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.15s; transform: scaleY(0);\"></div></div></div><div class=\"m-card\" style=\"padding: 12px; display: flex; flex-direction: column; justify-content: space-between; animation-delay: 0.6s; background: linear-gradient(135deg, rgba(239,68,68,0.05) 0%, transparent 100%); border-color: rgba(239,68,68,0.2);\"><div style=\"display: flex; justify-content: space-between; align-items: center;\"><div style=\"color: white; font-family: \'Space Mono\', monospace; font-size: 0.7rem; font-weight: 700;\">rds-94016abc0</div><div style=\"color: #4ade80; font-size: 0.7rem; font-weight: 800; font-family: \'Space Mono\', monospace;\">+$12,450/mo</div></div><div style=\"color: #94a3b8; font-size: 0.6rem; line-height: 1.4; margin: 6px 0;\">Near-zero utilization (2.1%) with critical public access. Termination is a no-brainer.</div><div style=\"display: flex; justify-content: space-between; align-items: flex-end;\"><div style=\"background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: 800; display: flex; align-items: center; gap: 4px; animation: pulseGlowMarrow 2s infinite;\"><i class=\"fa-solid fa-trash-can\"></i> TERMINATE</div><div style=\"text-align: right;\"><div style=\"color: #60a5fa; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px;\">SECURITY IMPACT</div><div style=\"color: white; font-size: 0.6rem; font-weight: 600;\">Resolved 1 CRITICAL</div></div></div></div></div></div></div>'},
+    visual:'<div style=\"width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 12%; box-sizing: border-box; background: radial-gradient(circle at center, rgba(139,92,246,0.05), transparent 70%);\"><div class=\"vis-marrow\" style=\"width: 100%; height: 100%; background: #0a0a0c; border-radius: 16px; padding: 20px; position: relative; overflow: hidden; font-family: \'Inter\', sans-serif; display: flex; flex-direction: column; gap: 12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.5); box-sizing: border-box; animation: floatMarrow 6s ease-in-out infinite;\"><style>@import url(\'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap\'); @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } } @keyframes pulseGlowMarrow { 0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); } 50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); } } @keyframes barGrowMarrow { 0% { transform: scaleY(0.05); } 70% { transform: scaleY(1.05); } 100% { transform: scaleY(1); } } @keyframes floatMarrow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } } .m-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; backdrop-filter: blur(10px); animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }</style><img src=\"data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=\" style=\"display:none;\" onload=\"const p=this.closest(\\\'.vis-marrow\\\');const s=p.querySelector(\\\'.s-num\\\');const v=p.querySelector(\\\'.v-num\\\');const a=p.querySelector(\\\'.a-num\\\');const s2=p.querySelector(\\\'.s-num-sm\\\');const v2=p.querySelector(\\\'.v-num-sm\\\');let st=null;const anim=(t)=>{if(!st)st=t;const pr=Math.min((t-st)/2000,1);const e=1-Math.pow(1-pr,4);const sv=Math.floor(e*407068).toLocaleString();const vv=Math.floor(e*35);if(s)s.innerText=\\\'$\\\'+sv;if(s2)s2.innerText=\\\'$\\\'+sv;if(v)v.innerText=vv;if(v2)v2.innerText=vv;if(a)a.innerText=Math.floor(e*25);if(pr<1)requestAnimationFrame(anim);};requestAnimationFrame(anim);\"><div style=\"position: absolute; top: -40%; left: -40%; width: 180%; height: 180%; background: radial-gradient(circle at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 60%); pointer-events: none;\"></div><div style=\"display: flex; justify-content: space-between; align-items: center; animation: slideUpFade 0.6s ease-out forwards;\"><div style=\"display: flex; align-items: center; gap: 8px;\"><i class=\"fa-solid fa-shield-halved\" style=\"color: white; font-size: 1rem;\"></i><span style=\"font-weight: 800; color: white; font-size: 1rem; letter-spacing: 0.5px;\">Marrow</span><span style=\"color: rgba(255,255,255,0.2); font-size: 0.8rem;\">|</span><span style=\"color: #94a3b8; font-size: 0.7rem; font-weight: 600;\">Dashboard</span></div><div style=\"background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 10px; font-family: \'Space Mono\', monospace; font-size: 0.6rem; font-weight: 700; color: #cbd5e1; display: flex; align-items: center; gap: 6px;\"><i class=\"fa-solid fa-bolt\" style=\"color: #eab308;\"></i> Analyze</div></div><div class=\"m-card\" style=\"padding: 10px 14px; display: flex; gap: 12px; align-items: center; animation-delay: 0.1s;\"><div style=\"background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(168,85,247,0.05)); padding: 8px; border-radius: 8px; border: 1px solid rgba(168,85,247,0.2); color: #d8b4fe;\"><i class=\"fa-solid fa-robot\" style=\"font-size: 1rem;\"></i></div><div><div style=\"font-weight: 700; color: white; font-size: 0.75rem; margin-bottom: 2px;\">AI Executive Summary</div><div style=\"color: #94a3b8; font-size: 0.6rem; line-height: 1.4;\">Identified <span class=\"s-num-sm\" style=\"color: #4ade80;\">$0</span> savings and <span class=\"v-num-sm\" style=\"color: #60a5fa;\">0</span> attack vectors.</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;\"><div class=\"m-card\" style=\"padding: 12px; animation-delay: 0.2s; border-color: rgba(74,222,128,0.2); background: linear-gradient(180deg, rgba(74,222,128,0.05) 0%, rgba(255,255,255,0.01) 100%);\"><div style=\"color: #4ade80; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;\"><i class=\"fa-solid fa-piggy-bank\"></i> SAVINGS / YR</div><div class=\"s-num\" style=\"color: #4ade80; font-size: 1.2rem; font-family: \'Space Mono\', monospace; font-weight: 700; text-shadow: 0 0 15px rgba(74,222,128,0.4);\">$0</div></div><div class=\"m-card\" style=\"padding: 12px; animation-delay: 0.3s; border-color: rgba(96,165,250,0.2); background: linear-gradient(180deg, rgba(96,165,250,0.05) 0%, rgba(255,255,255,0.01) 100%);\"><div style=\"color: #60a5fa; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;\"><i class=\"fa-solid fa-shield-virus\"></i> ATTACK VECTORS</div><div class=\"v-num\" style=\"color: white; font-size: 1.2rem; font-family: \'Space Mono\', monospace; font-weight: 700;\">0</div></div><div class=\"m-card\" style=\"padding: 12px; animation-delay: 0.4s;\"><div style=\"color: #94a3b8; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;\"><i class=\"fa-solid fa-server\"></i> ANALYZED</div><div class=\"a-num\" style=\"color: white; font-size: 1.2rem; font-family: \'Space Mono\', monospace; font-weight: 700;\">0</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; flex: 1;\"><div class=\"m-card\" style=\"padding: 12px; display: flex; flex-direction: column; animation-delay: 0.5s;\"><div style=\"color: #94a3b8; font-size: 0.55rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;\">Spend vs. Optimized</div><div style=\"flex: 1; display: flex; align-items: flex-end; gap: 3px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;\"><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 45%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.50s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 25%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.55s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 35%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.60s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 15%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.65s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 50%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.70s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 20%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.75s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 30%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.80s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 10%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.85s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 40%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.90s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 35%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.95s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 25%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.00s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 18%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.05s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: #4ade80; border-radius: 2px 2px 0 0; height: 20%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.10s; transform: scaleY(0);\"></div><div style=\"flex: 1; background: rgba(96,165,250,0.5); border-radius: 2px 2px 0 0; height: 12%; transform-origin: bottom; animation: barGrowMarrow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.15s; transform: scaleY(0);\"></div></div></div><div class=\"m-card\" style=\"padding: 12px; display: flex; flex-direction: column; justify-content: space-between; animation-delay: 0.6s; background: linear-gradient(135deg, rgba(239,68,68,0.05) 0%, transparent 100%); border-color: rgba(239,68,68,0.2);\"><div style=\"display: flex; justify-content: space-between; align-items: center;\"><div style=\"color: white; font-family: \'Space Mono\', monospace; font-size: 0.7rem; font-weight: 700;\">rds-94016abc0</div><div style=\"color: #4ade80; font-size: 0.7rem; font-weight: 800; font-family: \'Space Mono\', monospace;\">+$12,450/mo</div></div><div style=\"color: #94a3b8; font-size: 0.6rem; line-height: 1.4; margin: 6px 0;\">Near-zero utilization (2.1%) with critical public access. Termination is a no-brainer.</div><div style=\"display: flex; justify-content: space-between; align-items: flex-end;\"><div style=\"background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: 800; display: flex; align-items: center; gap: 4px; animation: pulseGlowMarrow 2s infinite;\"><i class=\"fa-solid fa-trash-can\"></i> TERMINATE</div><div style=\"text-align: right;\"><div style=\"color: #60a5fa; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.5px;\">SECURITY IMPACT</div><div style=\"color: white; font-size: 0.6rem; font-weight: 600;\">Resolved 1 CRITICAL</div></div></div></div></div></div></div>'},
     
   {badge:'🍯 THREAT INTEL',title:'SSH Honeypot Analysis',tags:['Cowrie','AWS EC2','MITRE ATT&CK','Threat Intel'],link:'https://github.com/nssriraam/SSH-Honeypot-Attack-Analysis',isProprietary:false,
     desc:'Deployed a Cowrie SSH honeypot on an AWS EC2 instance to capture and analyze real-world brute-force attack behavior and credential spraying.',
@@ -1155,14 +1246,14 @@ var projects=[
     problem:'AWS environments ship with silent misconfigurations (open S3 buckets, exposed SSH) that go undetected until exploited.',
     built:'Engineered an automated script checking 5 critical security controls, generating color-coded terminal outputs and timestamped JSON audit reports.',
     learned:'Deepened understanding of AWS architecture, Boto3 SDK interactions, and the programmatic evaluation of IAM permission boundaries.',
-    visual:'<div class="vis-cspm"><div class="vc-card vcc-1"><div class="vc-header"><i class="fa-brands fa-aws"></i> S3 Bucket</div><div class="vc-status vcs-bad">HIGH RISK</div></div><div class="vc-card vcc-2"><div class="vc-header"><i class="fa-brands fa-aws"></i> IAM Policy</div><div class="vc-status vcs-warn">MEDIUM</div></div><div class="vc-card vcc-3"><div class="vc-header"><i class="fa-brands fa-aws"></i> EC2 Group</div><div class="vc-status vcs-good">SECURE</div></div></div>'},
+    visual:'<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 12px; box-sizing: border-box; background: radial-gradient(circle at center, rgba(16,185,129,0.05), transparent 70%);"><div style="width: 100%; background: #0a0a0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; font-family: Space Mono, monospace; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"><div style="height: 32px; background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; padding: 0 14px; gap: 8px; flex-shrink: 0;"><div style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444;"></div><div style="width: 10px; height: 10px; border-radius: 50%; background: #eab308;"></div><div style="width: 10px; height: 10px; border-radius: 50%; background: #22c55e;"></div><div style="margin-left: 10px; font-size: 0.75rem; color: #94a3b8; font-family: var(--mono);">cspm_scanner.py</div></div><div style="padding: 16px 20px; font-size: 0.75rem; color: #cbd5e1; line-height: 1.7; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden;"><style>@keyframes loopType { 0%, 15% { opacity: 0; transform: translateY(10px); } 20%, 90% { opacity: 1; transform: translateY(0); } 95%, 100% { opacity: 0; transform: translateY(-10px); } } .tl-1 { animation: loopType 8s infinite; opacity: 0; } .tl-2 { animation: loopType 8s infinite 0.5s; opacity: 0; } .tl-3 { animation: loopType 8s infinite 1.0s; opacity: 0; } .tl-4 { animation: loopType 8s infinite 1.5s; opacity: 0; } .tl-5 { animation: loopType 8s infinite 2.0s; opacity: 0; } .tl-6 { animation: loopType 8s infinite 2.5s; opacity: 0; } .tl-cursor { display: inline-block; width: 8px; height: 16px; background: #22c55e; margin-left: 6px; animation: blink 1s infinite; vertical-align: text-bottom; } @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }</style><div class="tl-1"><span style="color: #60a5fa;">[ 1/5 ]</span> Checking S3 buckets... <span style="color: #4ade80;">✅ OK</span></div><div class="tl-2"><span style="color: #60a5fa;">[ 2/5 ]</span> Checking Security Groups... <span style="color: #4ade80;">✅ OK</span></div><div class="tl-3"><span style="color: #60a5fa;">[ 3/5 ]</span> Checking IAM users... <br><span style="color: #eab308;">🟡 [MEDIUM]</span> IAM User — cloud-soc-test-user No MFA</div><div class="tl-4"><span style="color: #60a5fa;">[ 4/5 ]</span> Checking EC2 instances... <span style="color: #4ade80;">✅ OK</span></div><div class="tl-5"><span style="color: #60a5fa;">[ 5/5 ]</span> Checking CloudTrail... <br><span style="color: #ef4444;">🔴 [HIGH]</span> CloudTrail — N/A No trails found.</div><div class="tl-6" style="margin-top: 12px; border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 12px; font-weight: bold;">Total findings : 4 | <span style="color: #ef4444;">🔴 HIGH: 1</span> | <span style="color: #eab308;">🟡 MEDIUM: 3</span><span class="tl-cursor"></span></div></div></div></div>'},
     
   {badge:'🤖 AI · THREAT DETECTION',title:'AI-Powered CloudTrail Analyzer',tags:['Python','Ollama','CloudTrail','MITRE ATT&CK','LLM'],link:'https://github.com/nssriraam/AI-CloudTrail-Analyzer',isProprietary:false,
     desc:'A fully offline, local AI security tool that ingests AWS CloudTrail logs and performs automated SOC-style triage using Qwen 2.5 Coder 7B via Ollama.',
     problem:'Manual SOC triage of cloud logs is slow and expensive across multi-stage attack chains.',
     built:'Built a Python pipeline that parses JSON CloudTrail events, sending them to a local LLM for severity rating, suspicion assessment, and MITRE ATT&CK mapping.',
     learned:'Integrated local LLMs into offline security workflows without exposing sensitive logs to cloud APIs, mastering zero-trust AI implementation.',
-    visual:'<div class="vis-cloudtrail"><div class="vct-log-wrapper"><div class="vct-log-lines"><div class="vct-line"></div><div class="vct-line"></div><div class="vct-line anomaly"></div><div class="vct-line"></div><div class="vct-line"></div><div class="vct-line anomaly"></div><div class="vct-line"></div></div></div><div class="vct-ai-glass"><i class="fa-solid fa-wand-magic-sparkles"></i><span>ANALYZING</span></div></div>'}
+    visual:'<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; background: radial-gradient(circle at center, rgba(56,189,248,0.05), transparent 70%);"><div style="width: 100%; background: #0a0a0c; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; display: grid; grid-template-columns: 1.1fr 0.9fr; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"><style>@keyframes ctLogSlide { 0%, 10% { transform: translateY(20px); opacity: 0; } 20%, 90% { transform: translateY(0); opacity: 1; } 95%, 100% { transform: translateY(-20px); opacity: 0; } } @keyframes ctAiPop { 0%, 45% { transform: scale(0.7); opacity: 0; } 47% { transform: scale(1.05); opacity: 1; } 50%, 90% { transform: scale(1); opacity: 1; } 95%, 100% { transform: scale(1.05); opacity: 0; } } @keyframes ctScanLine { 0%, 20% { top: 0; opacity: 0; } 30%, 80% { top: 100%; opacity: 1; } 90%, 100% { top: 100%; opacity: 0; } } @keyframes ctPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 10px #38bdf8; } } .ct-log-text { animation: ctLogSlide 6s infinite; } .ct-scan-bar { animation: ctScanLine 6s infinite ease-in-out; } .ct-ai-box { animation: ctAiPop 6s infinite cubic-bezier(0.16,1,0.3,1); } .ct-magic { animation: ctPulse 2s infinite; }</style><div style="padding: 42px 24px; border-right: 1px solid rgba(255,255,255,0.05); position: relative; background: rgba(0,0,0,0.3); display:flex; flex-direction:column; justify-content:center;"><div style="font-family: Space Mono, monospace; font-size: 0.75rem; color: #64748b; margin-bottom: 16px;">cloudtrail.json</div><div class="ct-log-text" style="font-family: Space Mono, monospace; font-size: 0.7rem; color: #94a3b8; line-height: 1.6; white-space: pre-wrap;">{<br>  "EventTime": "2024-03-10",<br>  "EventSource": "iam.amazonaws.com",<br>  <span style="color: #ef4444; background: rgba(239,68,68,0.15); padding: 2px 4px; border-radius: 4px;">"EventName": "AttachUserPolicy",</span><br>  "UserIdentity": {<br>    "UserName": "admin"<br>  },<br>  "RequestParameters": {<br>    <span style="color: #ef4444; background: rgba(239,68,68,0.15); padding: 2px 4px; border-radius: 4px;">"PolicyArn": "...AdministratorAccess",</span><br>    "UserName": "backdoor-user"<br>  }<br>}</div><div class="ct-scan-bar" style="position: absolute; left: 0; right: 0; height: 3px; background: rgba(56,189,248,0.6); box-shadow: 0 0 15px rgba(56,189,248,0.9);"></div></div><div style="padding: 42px 24px; display: flex; flex-direction: column; justify-content: center;"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; color: #38bdf8;"><i class="fa-solid fa-wand-magic-sparkles ct-magic" style="font-size: 1.1rem;"></i><span class="ct-magic" style="font-family: var(--head); font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;">QWEN 2.5 TRIAGE</span></div><div class="ct-ai-box" style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.3);"><div style="display: flex; justify-content: space-between; align-items: center;"><span style="font-family: Space Mono, monospace; font-size: 0.65rem; color: #94a3b8; letter-spacing: 1px;">SEVERITY</span><span style="background: #ef4444; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; box-shadow: 0 0 10px rgba(239,68,68,0.5);">HIGH</span></div><div><div style="font-family: Space Mono, monospace; font-size: 0.65rem; color: #94a3b8; margin-bottom: 6px; letter-spacing: 1px;">MITRE_TECHNIQUE</div><div style="font-size: 0.8rem; color: #f8fafc; font-weight: 600;">Privilege Escalation (T1054)</div></div><div><div style="font-family: Space Mono, monospace; font-size: 0.65rem; color: #94a3b8; margin-bottom: 6px; letter-spacing: 1px;">SUSPICION</div><div style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.5;">Highly suspicious — grants full admin privileges to a newly created user.</div></div></div></div></div></div>'}
 ];
 
 // ── RENDER PINNED PROJECTS STORY ──
@@ -1170,7 +1261,7 @@ var projWrapper = document.getElementById('projWrapper');
 var projSticky = document.getElementById('projSticky');
 
 // Set wrapper height based on number of projects (slow down scroll distance to 80vh per project)
-projWrapper.style.height = (projects.length * 80) + 'vh';
+projWrapper.style.height = ((projects.length + 0.5) * 80) + 'vh';
 
 var panelsHtml = '';
 
@@ -1198,21 +1289,62 @@ projects.forEach(function(p,i){
     </div>
   `;
 });
-projSticky.innerHTML = '<h2 class="section-title" style="position: absolute; top: 80px; left: 7vw; margin: 0; z-index: 10;">Key <em>Projects</em></h2><div class="horizontal-track" id="horizontalTrack">' + panelsHtml + '</div>';
+var viewMoreHtml = `
+  <div class="pp-panel" style="width: 50vw; justify-content: center; align-items: center; padding-top: 100px;">
+    <a href="https://github.com/nssriraam?tab=repositories" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 20px; color: var(--txt); transition: all 0.3s;" onmouseover="this.style.color='var(--gold)'; this.children[0].style.transform='scale(1.1)'; this.children[0].style.borderColor='var(--gold)'; this.children[0].style.boxShadow='0 10px 30px rgba(212,147,74,0.4)';" onmouseout="this.style.color='var(--txt)'; this.children[0].style.transform='scale(1)'; this.children[0].style.borderColor='rgba(255,255,255,0.3)'; this.children[0].style.boxShadow='0 0 20px rgba(255,255,255,0.15)';">
+      <div style="width: 80px; height: 80px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 0 20px rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); transition: all 0.4s var(--ease);">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+      <div style="font-family: var(--mono); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">View More</div>
+    </a>
+  </div>
+`;
+projSticky.innerHTML = '<h2 class="section-title" style="position: absolute; top: 80px; left: 7vw; margin: 0; z-index: 10;">Key <em>Projects</em></h2><div class="horizontal-track" id="horizontalTrack">' + panelsHtml + viewMoreHtml + '</div>';
 
 var horizontalTrack = document.getElementById('horizontalTrack');
+var hTicking=false;
 window.addEventListener('scroll', function() {
-  var rect = projWrapper.getBoundingClientRect();
-  var scrollProgress = -rect.top / (rect.height - window.innerHeight);
-  
-  if (scrollProgress < 0) scrollProgress = 0;
-  if (scrollProgress > 1) scrollProgress = 1;
-  
-  var xMove = scrollProgress * (projects.length - 1) * 100;
-  horizontalTrack.style.transform = `translateX(-${xMove}vw)`;
+  if(!hTicking){
+    window.requestAnimationFrame(function(){
+      var rect = projWrapper.getBoundingClientRect();
+      var scrollProgress = -rect.top / (rect.height - window.innerHeight);
+      
+      if (scrollProgress < 0) scrollProgress = 0;
+      if (scrollProgress > 1) scrollProgress = 1;
+      
+      var maxTranslate = (projects.length - 1) * 100 + 50;
+      var xMove = scrollProgress * maxTranslate;
+      horizontalTrack.style.transform = `translateX(-${xMove}vw)`;
+      hTicking=false;
+    });
+    hTicking=true;
+  }
 }, { passive: true });
 // Initial trigger
 window.dispatchEvent(new Event('scroll'));
+
+// ── MARROW ANIMATION RESTART ON SCROLL INTO VIEW ──
+(function(){
+  var marrowIdx = projects.findIndex(function(p){ return p.title.indexOf('Marrow') !== -1; });
+  if(marrowIdx === -1) return;
+  var marrowPanel = document.getElementById('pp-panel-' + marrowIdx);
+  if(!marrowPanel) return;
+  var marrowRight = marrowPanel.querySelector('.pp-right');
+  if(!marrowRight) return;
+  var marrowVisualHTML = marrowRight.innerHTML;
+  var hasPlayed = false;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting && !hasPlayed){
+        hasPlayed = true;
+        marrowRight.innerHTML = '';
+        void marrowRight.offsetHeight;
+        marrowRight.innerHTML = marrowVisualHTML;
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(marrowPanel);
+})();
 
 // ── MODAL ──
 function openModal(i){
@@ -1221,22 +1353,39 @@ function openModal(i){
   mBox.innerHTML = `
     <button onclick="closeModal()" class="modal-close-btn">✕</button>
     <div class="modal-grid">
-      <div class="m-left">
-        <div class="pc-h-badge" style="margin-bottom:20px; border-color: ${p.isProprietary ? 'rgba(212,147,74,0.4)' : 'rgba(114,85,176,0.3)'}; color: ${p.isProprietary ? 'var(--gold)' : 'var(--lav)'}; background: ${p.isProprietary ? 'rgba(212,147,74,0.1)' : 'rgba(114,85,176,0.12)'};">${p.badge}</div>
-        <h3 style="font-family:var(--head);font-size:2.2rem;font-weight:800;color:var(--txt);line-height:1.2;margin-bottom:20px;letter-spacing:-1px;">${p.title}</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;">
-          ${p.tags.map(t=>`<span style="font-family:var(--mono);font-size:0.65rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--muted);border-radius:20px;">${t}</span>`).join('')}
+      <div class="m-top-row">
+        <div class="m-left">
+          <div>
+            <div class="pc-h-badge" style="display:inline-block; padding: 6px 16px; border-radius: 50px; border: 1px solid; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; font-family: var(--mono); margin-bottom:20px; border-color: ${p.isProprietary ? 'rgba(212,147,74,0.4)' : 'rgba(114,85,176,0.3)'}; color: ${p.isProprietary ? 'var(--gold)' : 'var(--lav)'}; background: ${p.isProprietary ? 'rgba(212,147,74,0.1)' : 'rgba(114,85,176,0.12)'};">${p.badge}</div>
+            <h3 style="font-family:var(--head);font-size:2.4rem;font-weight:800;color:var(--txt);line-height:1.1;letter-spacing:-1px;margin-bottom:20px;">${p.title}</h3>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            ${p.tags.map(t=>`<span style="font-family:var(--mono);font-size:0.65rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--muted);border-radius:20px;">${t}</span>`).join('')}
+          </div>
+          <div style="margin-top:10px;">
+            <a id="mLink" href="${p.link}" target="_blank" rel="noopener noreferrer" class="modal-view-btn" style="display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:0.75rem;letter-spacing:1.5px;color:var(--bg);background:var(--gold);padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;transition:all 0.3s;width:fit-content;">
+              <span>${p.isProprietary ? '<i class="fa-solid fa-lock"></i> PROPRIETARY' : 'VIEW GITHUB <i class="fa-brands fa-github" style="transition: transform 0.3s var(--ease); font-size: 1.1em;"></i>'}</span>
+            </a>
+          </div>
         </div>
-        <div style="margin-top:auto;">
-          <a id="mLink" href="${p.link}" target="_blank" style="display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:0.75rem;letter-spacing:1.5px;color:var(--bg);background:var(--gold);padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;transition:all 0.3s;width:fit-content;">
-            ${p.isProprietary ? '<i class="fa-solid fa-lock"></i> PROPRIETARY' : 'VIEW PROJECT <i class="fa-solid fa-arrow-up-right-from-square"></i>'}
-          </a>
+        <div class="m-right-vis" data-proj="${p.title}">
+          ${p.visual}
         </div>
       </div>
-      <div class="m-right">
-        <div><div class="m-section-label">Problem</div><p style="color:var(--muted);font-size:0.95rem;line-height:1.8;">${p.problem}</p></div>
-        <div><div class="m-section-label">What I Built</div><p style="color:var(--txt);font-size:0.95rem;line-height:1.8;">${p.built}</p></div>
-        <div><div class="m-section-label">What I Learned</div><p style="color:var(--txt);font-size:0.95rem;line-height:1.8;">${p.learned}</p></div>
+      
+      <div class="m-bottom-row">
+        <div class="m-bento-card">
+          <div class="m-section-label"><i class="fa-solid fa-crosshairs" style="margin-right:8px;color:rgba(255,255,255,0.4);font-size:0.7rem;"></i>Problem</div>
+          <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;">${p.problem}</p>
+        </div>
+        <div class="m-bento-card">
+          <div class="m-section-label"><i class="fa-solid fa-hammer" style="margin-right:8px;color:var(--gold);font-size:0.7rem;"></i>What I Built</div>
+          <p style="color:var(--txt);font-size:0.85rem;line-height:1.7;">${p.built}</p>
+        </div>
+        <div class="m-bento-card">
+          <div class="m-section-label"><i class="fa-solid fa-brain" style="margin-right:8px;color:var(--lav);font-size:0.7rem;"></i>What I Learned</div>
+          <p style="color:var(--txt);font-size:0.85rem;line-height:1.7;">${p.learned}</p>
+        </div>
       </div>
     </div>
   `;
@@ -1282,9 +1431,32 @@ function handleHireMe(e){e.preventDefault();window.location.href='mailto:nosrira
 
 // ── NAV HIDE ON SCROLL ──
 var lastScroll=0,nav=document.getElementById('mainNav');
-window.addEventListener('scroll',function(){var s=window.scrollY;if(s>lastScroll&&s>200)nav.classList.add('hidden');else nav.classList.remove('hidden');lastScroll=s;},{passive:true});
+var navTicking = false;
+window.addEventListener('scroll',function(){
+  var s=window.scrollY;
+  if(!navTicking){
+    window.requestAnimationFrame(function(){
+      if(s>lastScroll&&s>200)nav.classList.add('hidden');else nav.classList.remove('hidden');
+      lastScroll=s;
+      navTicking=false;
+    });
+    navTicking=true;
+  }
+},{passive:true});
+
 var allSections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('nav.pill-nav a.nav-link');
-window.addEventListener('scroll',function(){var cur='';allSections.forEach(function(s){if(window.scrollY>=s.offsetTop-120)cur=s.id;});navLinks.forEach(function(a){a.style.color=a.getAttribute('href')==='#'+cur?'var(--lav)':'';});},{passive:true});
+var sTicking=false;
+window.addEventListener('scroll',function(){
+  if(!sTicking){
+    window.requestAnimationFrame(function(){
+      var cur='';
+      allSections.forEach(function(s){if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+      navLinks.forEach(function(a){a.style.color=a.getAttribute('href')==='#'+cur?'var(--lav)':'';});
+      sTicking=false;
+    });
+    sTicking=true;
+  }
+},{passive:true});
 
 // ── COUNTERS ──
 
@@ -1638,6 +1810,24 @@ window.addEventListener('scroll',function(){var cur='';allSections.forEach(funct
 
     sections.forEach(function(s){ obs.observe(s); });
   })();
+
+  // ── MOBILE MENU TOGGLE ──
+  function toggleMobileMenu() {
+    var menu = document.getElementById('mobileMenu');
+    var icon = document.querySelector('#hamburgerMenu i');
+    menu.classList.toggle('active');
+    if(menu.classList.contains('active')) {
+      icon.classList.remove('fa-bars');
+      icon.classList.add('fa-xmark');
+      document.body.style.overflow = 'hidden';
+    } else {
+      icon.classList.remove('fa-xmark');
+      icon.classList.add('fa-bars');
+      document.body.style.overflow = '';
+    }
+  }
 </script>
+</body>
+</html>
 </body>
 </html>
